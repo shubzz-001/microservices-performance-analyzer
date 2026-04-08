@@ -1,17 +1,3 @@
-# Java
-target/
-*.log
-
-# Node
-node_modules/
-
-# Python
-__pycache__/
-.env
-
-# OS
-.DS_Store
-
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
@@ -46,4 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-backend/src/main/resources/application-local.yaml
+src/main/resources/application-local.yaml
