@@ -1,5 +1,7 @@
 package com.analyzer.modules.simulation.service;
 
+import com.analyzer.modules.simulation.events.SimulationEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import com.analyzer.modules.simulation.model.ServiceInstance;
@@ -13,9 +15,11 @@ import java.util.Random;
 public class SimulationService {
 
     private final ServiceInstanceRepository repository;
+    private final ApplicationEventPublisher publisher;
     
-    public SimulationService(ServiceInstanceRepository repository) {
+    public SimulationService(ServiceInstanceRepository repository,  ApplicationEventPublisher publisher) {
         this.repository = repository;
+        this.publisher = publisher;
     }
 
     public List<ServiceInstance> runSimulation() {
@@ -29,7 +33,11 @@ public class SimulationService {
             boolean success = random.nextDouble() > 0.1; // 90% success rate
 
             ServiceInstance instance = new ServiceInstance(null, service, latency, success);
-            results.add(repository.save(instance));
+            results.add(instance);
+
+            publisher.publishEvent(new SimulationEvent(service, latency, success));
+
+            results.add(instance);
         }
 
         return results;
