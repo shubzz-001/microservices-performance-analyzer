@@ -33,4 +33,11 @@ public class AIService {
         return aiClient.detectAnomalies(request);
     }
 
+    public int getAnomalyCount() {
+        String response = analyzeLogs();
+
+        int count = response.split("\"anomaly\":true").length - 1;
+        return count;
+    }
+
 }
