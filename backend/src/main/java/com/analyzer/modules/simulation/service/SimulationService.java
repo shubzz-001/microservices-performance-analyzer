@@ -1,9 +1,9 @@
 package com.analyzer.modules.simulation.service;
 
-import com.analyzer.modules.simulation.events.SimulationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import com.analyzer.modules.simulation.events.SimulationEvent;
 import com.analyzer.modules.simulation.model.ServiceInstance;
 import com.analyzer.modules.simulation.repository.ServiceInstanceRepository;
 
