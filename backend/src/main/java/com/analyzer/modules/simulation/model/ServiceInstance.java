@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -21,5 +23,7 @@ public class ServiceInstance {
     private String serviceName;
     private int latency;
     private boolean success;
+
+    private LocalDateTime timestamp;
 
 }

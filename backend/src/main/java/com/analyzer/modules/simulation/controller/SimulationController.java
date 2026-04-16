@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.analyzer.modules.simulation.service.SimulationService;
@@ -19,8 +20,8 @@ public class SimulationController {
     }
 
     @GetMapping("/run")
-    public List<?> runSimulation() {
-        return simulationService.runSimulation();
+    public List<?> runSimulation(@RequestParam(defaultValue = "5") int services) {
+        return simulationService.runSimulation(services);
     }
 
 }

@@ -3,11 +3,11 @@ package com.analyzer.modules.simulation.service;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-import com.analyzer.modules.simulation.events.SimulationEvent;
 import com.analyzer.modules.simulation.model.ServiceInstance;
 import com.analyzer.modules.simulation.repository.ServiceInstanceRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -22,22 +22,23 @@ public class SimulationService {
         this.publisher = publisher;
     }
 
-    public List<ServiceInstance> runSimulation() {
+    public List<ServiceInstance> runSimulation(int count) {
         List<ServiceInstance> results = new ArrayList<>();
         Random random = new Random();
 
         String[] services = {"AuthService", "PaymentService", "OrderService", "InventoryService",};
 
-        for (String service : services) {
+        for (int i = 1; i <= count; i++) {
             int latency = 50 + random.nextInt(300);
-            boolean success = random.nextDouble() > 0.1; // 90% success rate
+            boolean success = random.nextDouble() > 0.1;
 
-            ServiceInstance instance = new ServiceInstance(null, service, latency, success);
-            results.add(instance);
-
-            publisher.publishEvent(new SimulationEvent(service, latency, success));
-
-            results.add(instance);
+            results.add(new ServiceInstance(
+                    null,
+                    "Service-"+i,
+                    latency,
+                    success,
+                    new Date(System.currentTimeMillis()).toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime()
+            ));
         }
 
         return results;
